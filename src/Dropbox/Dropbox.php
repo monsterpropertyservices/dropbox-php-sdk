@@ -1028,6 +1028,7 @@ class Dropbox
      * @param  int                $offset      The amount of data that has been uploaded so far
      * @param  int                $chunkSize   The amount of data to upload
      * @param  boolean            $close       Closes the session for futher "appendUploadSession" calls
+     * @param  boolean            $chunked     Whether the provided $dropboxFile is chunked or its the full file
      *
      * @return string Unique identifier for the upload session
      *
@@ -1036,10 +1037,14 @@ class Dropbox
      * @link https://www.dropbox.com/developers/documentation/http/documentation#files-upload_session-append_v2
      *
      */
-    public function appendUploadSession($dropboxFile, $sessionId, $offset, $chunkSize, $close = false)
+    public function appendUploadSession($dropboxFile, $sessionId, $offset, $chunkSize, $close = false, $chunked = false)
     {
         //Make Dropbox File
-        $dropboxFile = $this->makeDropboxFile($dropboxFile, $chunkSize, $offset);
+        if($chunked) {
+            $dropboxFile = $this->makeDropboxFile($dropboxFile, $chunkSize, 0);
+        } else {
+            $dropboxFile = $this->makeDropboxFile($dropboxFile, $chunkSize, $offset);
+        }
 
         //Session ID, offset, chunkSize and path cannot be null
         if (is_null($sessionId) || is_null($offset) || is_null($chunkSize)) {
@@ -1078,6 +1083,7 @@ class Dropbox
      * @param  int                $remaining   The amount of data that is remaining
      * @param  string             $path        Path to save the file to, on Dropbox
      * @param  array              $params      Additional Params
+     * @param  boolean            $chunked     Whether the provided $dropboxFile is chunked or its the full file
      *
      * @return \Kunnu\Dropbox\Models\FileMetadata
      *
@@ -1086,10 +1092,14 @@ class Dropbox
      * @link https://www.dropbox.com/developers/documentation/http/documentation#files-upload_session-finish
      *
      */
-    public function finishUploadSession($dropboxFile, $sessionId, $offset, $remaining, $path, array $params = [])
+    public function finishUploadSession($dropboxFile, $sessionId, $offset, $remaining, $path, array $params = [], $chunked = false)
     {
         //Make Dropbox File
-        $dropboxFile = $this->makeDropboxFile($dropboxFile, $remaining, $offset);
+        if($chunked) {
+            $dropboxFile = $this->makeDropboxFile($dropboxFile, $remaining, 0);
+        } else {
+            $dropboxFile = $this->makeDropboxFile($dropboxFile, $remaining, $offset);
+        }
 
         //Session ID, offset, remaining and path cannot be null
         if (is_null($sessionId) || is_null($path) || is_null($offset) || is_null($remaining)) {
