@@ -34,7 +34,7 @@ class DropboxRawResponse
      * @param string    $body           Raw response body
      * @param int|null  $statusCode     HTTP response code
      */
-    public function __construct($headers, $body, $statusCode = null)
+    public function __construct($headers, $body, int|null $statusCode = null)
     {
         if (is_numeric($statusCode)) {
             $this->httpResponseCode = (int) $statusCode;
