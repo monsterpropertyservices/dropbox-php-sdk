@@ -19,7 +19,7 @@ class PersistentDataStoreFactory
      *
      * @return \Kunnu\Dropbox\Store\PersistentDataStoreInterface
      */
-    public static function makePersistentDataStore($store)
+    public static function makePersistentDataStore(mixed $store)
     {
         if (is_null($store) || $store === 'session') {
             return new SessionPersistentDataStore();
