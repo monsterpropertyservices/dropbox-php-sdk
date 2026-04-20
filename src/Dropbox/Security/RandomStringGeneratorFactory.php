@@ -20,7 +20,7 @@ class RandomStringGeneratorFactory
      *
      * @return \Kunnu\Dropbox\Security\RandomStringGeneratorInterface
      */
-    public static function makeRandomStringGenerator($generator = null)
+    public static function makeRandomStringGenerator(mixed $generator)
     {
         //No generator provided
         if (is_null($generator)) {

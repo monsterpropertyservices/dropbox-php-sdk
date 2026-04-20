@@ -108,13 +108,13 @@ class DropboxAuthHelper
      * @param  string $redirectUri Callback URL to redirect to after authorization
      * @param  array  $params      Additional Params
      * @param  string $urlState  Additional User Provided State Data
-     * @param string $tokenAccessType Either `offline` or `online` or null
+     * @param ?string $tokenAccessType Either `offline` or `online` or null
      *
      * @link https://www.dropbox.com/developers/documentation/http/documentation#oauth2-authorize
      *
      * @return string
      */
-    public function getAuthUrl($redirectUri = null, array $params = [], $urlState = null, $tokenAccessType = null)
+    public function getAuthUrl($redirectUri = null, array $params = [], $urlState = null, ?string $tokenAccessType = null)
     {
         // If no redirect URI
         // is provided, the
@@ -196,13 +196,13 @@ class DropboxAuthHelper
      * Get Access Token
      *
      * @param  string $code Authorization Code
-     * @param  string $state CSRF & URL State
-     * @param  string $redirectUri Redirect URI used while getAuthUrl
+     * @param  ?string $state CSRF & URL State
+     * @param  ?string $redirectUri Redirect URI used while getAuthUrl
      *
      * @return \Kunnu\Dropbox\Models\AccessToken
      * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
      */
-    public function getAccessToken($code, $state = null, $redirectUri = null)
+    public function getAccessToken($code, ?string $state = null, ?string $redirectUri = null)
     {
         // No state provided
         // Should probably be

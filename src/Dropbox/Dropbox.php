@@ -233,12 +233,12 @@ class Dropbox
      *
      * @param  string $endpoint API Endpoint to send Request to
      * @param  array $params Request Query Params
-     * @param  string $accessToken Access Token to send with the Request
+     * @param  ?string $accessToken Access Token to send with the Request
      *
      * @return \Kunnu\Dropbox\DropboxResponse
      * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
     */
-    public function postToAPI($endpoint, array $params = [], $accessToken = null)
+    public function postToAPI($endpoint, array $params = [], ?string $accessToken = null)
     {
         return $this->sendRequest("POST", $endpoint, 'api', $params, $accessToken);
     }
@@ -251,13 +251,13 @@ class Dropbox
      * @param  string      $endpointType Endpoint type ['api'|'content']
      * @param  array       $params       Request Query Params
      * @param  string      $accessToken  Access Token to send with the Request
-     * @param  DropboxFile $responseFile Save response to the file
+     * @param  ?DropboxFile $responseFile Save response to the file
      *
      * @return \Kunnu\Dropbox\DropboxResponse
      *
      * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
      */
-    public function sendRequest($method, $endpoint, $endpointType = 'api', array $params = [], $accessToken = null, DropboxFile $responseFile = null)
+    public function sendRequest($method, $endpoint, $endpointType = 'api', array $params = [], $accessToken = null, ?DropboxFile $responseFile = null)
     {
         //Access Token
         $accessToken = $this->getAccessToken() ? $this->getAccessToken() : $accessToken;
@@ -1010,12 +1010,12 @@ class Dropbox
      * @param  string $endpoint Content Endpoint to send Request to
      * @param  array $params Request Query Params
      * @param  string $accessToken Access Token to send with the Request
-     * @param  DropboxFile $responseFile Save response to the file
+     * @param  ?DropboxFile $responseFile Save response to the file
      *
      * @return \Kunnu\Dropbox\DropboxResponse
      * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
      */
-    public function postToContent($endpoint, array $params = [], $accessToken = null, DropboxFile $responseFile = null)
+    public function postToContent($endpoint, array $params = [], $accessToken = null, ?DropboxFile $responseFile = null)
     {
         return $this->sendRequest("POST", $endpoint, 'content', $params, $accessToken, $responseFile);
     }
@@ -1267,7 +1267,7 @@ class Dropbox
      * @link https://www.dropbox.com/developers/documentation/http/documentation#files-download
      *
      */
-    public function download($path, $dropboxFile = null)
+    public function download($path, null|string|DropboxFile $dropboxFile = null)
     {
         //Path cannot be null
         if (is_null($path)) {

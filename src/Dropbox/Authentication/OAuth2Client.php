@@ -49,9 +49,9 @@ class OAuth2Client
      *
      * @param \Kunnu\Dropbox\DropboxApp $app
      * @param \Kunnu\Dropbox\DropboxClient $client
-     * @param \Kunnu\Dropbox\Security\RandomStringGeneratorInterface $randStrGenerator
+     * @param ?\Kunnu\Dropbox\Security\RandomStringGeneratorInterface $randStrGenerator
      */
-    public function __construct(DropboxApp $app, DropboxClient $client, RandomStringGeneratorInterface $randStrGenerator = null)
+    public function __construct(DropboxApp $app, DropboxClient $client, ?RandomStringGeneratorInterface $randStrGenerator = null)
     {
         $this->app = $app;
         $this->client = $client;
@@ -101,13 +101,13 @@ class OAuth2Client
      *                            to the user.
      * @param string $state       CSRF Token
      * @param array  $params      Additional Params
-     * @param string $tokenAccessType Either `offline` or `online` or null
+     * @param ?string $tokenAccessType Either `offline` or `online` or null
      *
      * @link https://www.dropbox.com/developers/documentation/http/documentation#oauth2-authorize
      *
      * @return string
      */
-    public function getAuthorizationUrl($redirectUri = null, $state = null, array $params = [], $tokenAccessType = null)
+    public function getAuthorizationUrl($redirectUri = null, $state = null, array $params = [], ?string $tokenAccessType = null)
     {
         //Request Parameters
         $params = array_merge([
